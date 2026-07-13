@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+წიგნები
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4 text-center">
+    📚 წიგნების სია
+</h2>
+
+<!-- აქ დაამატე Search -->
+<form method="GET" action="{{ url_for('books') }}" class="mb-4">
+    <input type="text"
+           name="search"
+           class="form-control"
+           placeholder="მოძებნე წიგნი ან ავტორი">
+    <button type="submit" class="btn btn-primary mt-2">
+        🔍 ძებნა
+    </button>
+</form>
+
+{% for book in books %}
+
+<div class="card mb-3">
+
+    <div class="card-body">
+
+        {% if book.image %}
+    <img src="{{ url_for('static', filename='uploads/' + book.image) }}"
+         class="img-fluid mb-3"
+         style="max-width: 200px;">
+{% endif %}
+
+        <h4 class="card-title">
+    <a href="{{ url_for('book_detail', id=book.id) }}">
+        {{ book.title }}
+    </a>
+</h4>
+
+        <h6>
+            ავტორი: {{ book.author }}
+        </h6>
+
+        <p>
+            {{ book.review }}
+        </p>
+
+       <p>
+    შეფასება:
+
+    {% for i in range(book.rating) %}
+        ⭐
+    {% endfor %}
+
+    {% for i in range(5 - book.rating) %}
+        ☆
+    {% endfor %}
+</p>
+
+        <small>
+            დაამატა: {{ book.owner.username }}
+        </small>
+
+        {% if current_user.is_authenticated and current_user.is_admin %}
+        <a href="{{ url_for('edit_book', id=book.id) }}"
+           class="btn btn-warning mt-2">
+            რედაქტირება
+        </a>
+
+        <a href="{{ url_for('delete_book', id=book.id) }}"
+           class="btn btn-danger mt-2">
+            წაშლა
+        </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% else %}
+
+<p class="text-center">
+    ჯერ წიგნები დამატებული არ არის.
+</p>
+
+{% endfor %}
+
+{% endblock %}

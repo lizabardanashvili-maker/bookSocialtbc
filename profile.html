@@ -1,0 +1,47 @@
+გ{% extends "base.html" %}
+
+{% block title %}
+პროფილი
+{% endblock %}
+
+{% block content %}
+
+<h2 class="text-center mb-4">
+    👤 {{ user.username }}-ის პროფილი
+</h2>
+
+<h4>
+    ჩემი დამატებული წიგნები:
+</h4>
+
+{% for book in user.books %}
+
+<div class="card mb-3">
+
+    <div class="card-body">
+
+        <h5>
+            {{ book.title }}
+        </h5>
+
+        <p>
+            ავტორი: {{ book.author }}
+        </p>
+
+        <p>
+            ⭐ {{ book.rating }}/5
+        </p>
+
+    </div>
+
+</div>
+
+{% else %}
+
+<p>
+ჯერ წიგნები არ დაგიმატებია.
+</p>
+
+{% endfor %}
+
+{% endblock %}
