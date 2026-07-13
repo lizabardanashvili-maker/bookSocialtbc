@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+წიგნის დამატება
+{% endblock %}
+
+
+{% block content %}
+
+<h2>წიგნის დამატება</h2>
+
+
+<form method="POST" enctype="multipart/form-data">
+
+    {{ form.hidden_tag() }}
+
+
+    <div class="mb-3">
+        {{ form.title.label(class="form-label") }}
+        {{ form.title(class="form-control") }}
+    </div>
+
+
+    <div class="mb-3">
+        {{ form.author.label(class="form-label") }}
+        {{ form.author(class="form-control") }}
+    </div>
+
+
+    <div class="mb-3">
+        {{ form.review.label(class="form-label") }}
+        {{ form.review(class="form-control") }}
+    </div>
+
+
+    <div class="mb-3">
+        {{ form.rating.label(class="form-label") }}
+        {{ form.rating(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+    {{ form.image.label(class="form-label") }}
+    {{ form.image(class="form-control") }}
+    </div>
+
+    {{ form.submit(class="btn btn-primary") }}
+
+</form>
+
+
+{% endblock %}
